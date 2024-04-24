@@ -3,10 +3,7 @@
 """Pascal Triangle"""
 
 def pascal_triangle(n):
-    """
-    Returns a list of lists representing the Pascal's triangle up to n rows.
-    Returns an empty list if n <= 0.
-    """
+    """returns a pascal triangle of n rows"""
     if n <= 0:
         return []
 
