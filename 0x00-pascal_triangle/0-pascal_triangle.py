@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-
 """Pascal Triangle"""
+
 
 def pascal_triangle(n):
     """returns a pascal triangle of n rows"""
