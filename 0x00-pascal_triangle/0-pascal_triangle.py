@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+"""Pascal's Triangle"""
 def pascal_triangle(n):
     """
     Returns a list of lists representing Pascal's Triangle up to the n-th row.
