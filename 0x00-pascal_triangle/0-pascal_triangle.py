@@ -2,8 +2,6 @@
 """
 Pascal's Triangle
 """
-
-
 def pascal_triangle(n):
     """
          returns a list of lists of
