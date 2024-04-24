@@ -1,19 +1,26 @@
 #!/usr/bin/python3
-"""Pascal's Triangle"""
+"""Pascal Triangle"""
+
+
 def pascal_triangle(n):
-    """
-    Returns a list of lists representing Pascal's Triangle up to the n-th row.
-    Returns an empty list if n <= 0.
-    """
-    if n <= 0:  # 4. Conditional Statements
+    """returns a pascal triangle of n rows"""
+    if n <= 0:
         return []
 
-    triangle = [[1]]  # 1. Lists and List Comprehensions
+    pascal = [0] * n
 
-    for i in range(1, n):  # 3. Loops
-        # Generate the next row using list comprehension
-        prev_row = triangle[i - 1]
-        current_row = [1] + [prev_row[j] + prev_row[j + 1] for j in range(i - 1)] + [1]  # 1. List Comprehensions, 6. Arithmetic Operations, 7. Indexing and Slicing
-        triangle.append(current_row)  # 1. Lists
+    for i in range(n):
+        # include the first row
+        nrow = [0] * (i+1)
+        nrow[0] = 1
+        nrow[len(nrow) - 1] = 1
 
-    return triangle  # 2. Functions
+        for j in range(1, i):
+            if j > 0 and j < len(nrow):
+                a = pascal[i - 1][j]
+                b = pascal[i - 1][j - 1]
+                nrow[j] = a + b
+
+        pascal[i] = nrow
+
+    return pascal
