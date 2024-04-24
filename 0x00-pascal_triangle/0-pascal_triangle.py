@@ -2,51 +2,18 @@
 """Pascal's Triangle"""
 def pascal_triangle(n):
     """
-    Generate Pascal's Triangle up to n rows.
-
-    Args:
-        n (int): Number of rows in the Pascal's Triangle.
-
-    Returns:
-        list of lists: Pascal's Triangle represented as a list of lists of integers.
+    Returns a list of lists representing Pascal's Triangle up to the n-th row.
+    Returns an empty list if n <= 0.
     """
-    # Check if n is less than or equal to 0
-    if n <= 0:
+    if n <= 0:  # 4. Conditional Statements
         return []
 
-    # Initialize the triangle with the first row [1]
-    triangle = [[1]]
+    triangle = [[1]]  # 1. Lists and List Comprehensions
 
-    # Iterate to generate subsequent rows
-    for i in range(1, n):
-        # Create a new row list
-        row = [1]
-        # Access the previous row
+    for i in range(1, n):  # 3. Loops
+        # Generate the next row using list comprehension
         prev_row = triangle[i - 1]
+        current_row = [1] + [prev_row[j] + prev_row[j + 1] for j in range(i - 1)] + [1]  # 1. List Comprehensions, 6. Arithmetic Operations, 7. Indexing and Slicing
+        triangle.append(current_row)  # 1. Lists
 
-        # Calculate the values for the current row based on the previous row
-        for j in range(1, i):
-            # Use addition to calculate each element
-            element = prev_row[j - 1] + prev_row[j]
-            # Append the calculated element to the current row
-            row.append(element)
-
-        # Append 1 at the end of the row
-        row.append(1)
-        # Append the generated row to the triangle
-        triangle.append(row)
-
-    # Return the completed Pascal's Triangle
-    return triangle
-
-# Test the pascal_triangle function with 5 rows
-if __name__ == "__main__":
-    def print_triangle(triangle):
-        """
-        Print the triangle
-        """
-        for row in triangle:
-            print("[{}]".format(",".join([str(x) for x in row])))
-
-    # Print the Pascal's Triangle with 5 rows
-    print_triangle(pascal_triangle(5))
+    return triangle  # 2. Functions
