@@ -7,19 +7,20 @@ contain keys to the other boxes.
 """
 
 def canUnlockAll(boxes):
-    n = len(boxes)
-    unlocked = {0}  # Set of unlocked box indices
-    keys = set(boxes[0])  # Set of available keys from the first box
+    """
+     a method that determines if all the boxes can be opened.
 
-    def unlock_boxes(keys):
-        new_keys = set()
-        for key in keys:
-            if key < n and key not in unlocked:
-                unlocked.add(key)
-                new_keys.update(boxes[key])
-        return new_keys
+    :param boxes:
+    :return: True or False
+    """
+    if not boxes or type(boxes) is not list:
+        return False
 
-    while keys:
-        keys = unlock_boxes(keys)
-
-    return len(unlocked) == n
+    unlocked = [0]
+    for n in unlocked:
+        for key in boxes[n]:
+            if key not in unlocked and key < len(boxes):
+                unlocked.append(key)
+    if len(unlocked) == len(boxes):
+        return True
+    return False
