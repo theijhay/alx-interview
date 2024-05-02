@@ -5,17 +5,9 @@ Each box is numbered sequentially
 from 0 to n - 1 and each box may
 contain keys to the other boxes.
 """
-
 from collections import deque
 
 def canUnlockAll(boxes):
-
-    """
-     a method that determines if all the boxes can be opened.
-
-    :param boxes:
-    :return: True or False
-    """
     n = len(boxes)
     unlocked = [False] * n
     unlocked[0] = True
@@ -26,6 +18,6 @@ def canUnlockAll(boxes):
         for key in boxes[box_idx]:
             if key < n and not unlocked[key]:
                 unlocked[key] = True
-            queue.append(key)
+                queue.append(key)
 
     return all(unlocked)
