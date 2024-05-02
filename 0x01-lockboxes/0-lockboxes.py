@@ -5,19 +5,21 @@ Each box is numbered sequentially
 from 0 to n - 1 and each box may
 contain keys to the other boxes.
 """
-from collections import deque
 
 def canUnlockAll(boxes):
     n = len(boxes)
-    unlocked = [False] * n
-    unlocked[0] = True
-    queue = deque([0])
+    unlocked = {0}  # Set of unlocked box indices
+    keys = set(boxes[0])  # Set of available keys from the first box
 
-    while queue:
-        box_idx = queue.popleft()
-        for key in boxes[box_idx]:
-            if key < n and not unlocked[key]:
-                unlocked[key] = True
-                queue.append(key)
+    def unlock_boxes(keys):
+        new_keys = set()
+        for key in keys:
+            if key < n and key not in unlocked:
+                unlocked.add(key)
+                new_keys.update(boxes[key])
+        return new_keys
 
-    return all(unlocked)
+    while keys:
+        keys = unlock_boxes(keys)
+
+    return len(unlocked) == n
