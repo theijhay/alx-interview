@@ -17,15 +17,15 @@ def canUnlockAll(boxes):
     :return: True or False
     """
     n = len(boxes)
-    unlocked = [False] * n  # Track unlocked boxes
-    unlocked[0] = True  # Box 0 is unlocked initially
-    queue = deque([0])  # Queue for BFS
+    unlocked = [False] * n
+    unlocked[0] = True
+    queue = deque([0])
 
     while queue:
         box_idx = queue.popleft()
         for key in boxes[box_idx]:
             if key < n and not unlocked[key]:
                 unlocked[key] = True
-                queue.append(key)
+            queue.append(key)
 
     return all(unlocked)
