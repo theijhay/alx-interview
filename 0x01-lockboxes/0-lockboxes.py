@@ -9,6 +9,13 @@ contain keys to the other boxes.
 from collections import deque
 
 def canUnlockAll(boxes):
+
+    """
+     a method that determines if all the boxes can be opened.
+
+    :param boxes:
+    :return: True or False
+    """
     n = len(boxes)
     unlocked = [False] * n  # Track unlocked boxes
     unlocked[0] = True  # Box 0 is unlocked initially
