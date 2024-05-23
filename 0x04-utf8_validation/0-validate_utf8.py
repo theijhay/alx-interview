@@ -5,11 +5,8 @@ UTF-8 Validation module
 
 
 def validUTF8(data):
-    """
-    Returns True if data is a valid UTF-8 encoding, else return False
-    :param data:
-    :return:
-    """
+    """A method that determines if a given data set
+    represents a valid UTF-8 encoding"""
     num_bytes = 0
 
     mask1 = 1 << 7  # 10000000
