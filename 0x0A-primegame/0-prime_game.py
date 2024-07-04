@@ -1,56 +1,78 @@
 #!/usr/bin/python3
 """
-Prime Game Module
+Prime Game
 """
 
 
-def sieve_of_eratosthenes(max_n):
-    is_prime = [True] * (max_n + 1)
-    p = 2
-    while p * p <= max_n:
-        if is_prime[p]:
-            for i in range(p * p, max_n + 1, p):
-                is_prime[i] = False
-        p += 1
-    primes = [p for p in range(2, max_n + 1) if is_prime[p]]
-    return primes, is_prime
+def findMultiples(num, targets):
+    """
+    Finds multiples of a given number within a list
+    """
+    for i in targets:
+        if i % num == 0:
+            targets.remove(i)
+    return targets
 
 
-def play_game(n, primes, is_prime):
-    game_state = [True] * (n + 1)
-    current_player = 0  # 0 for Maria, 1 for Ben
+def isPrime(i):
+    """
+    Check if a number is prime.
+    """
+    if i == 1:
+        return False
+    for j in range(2, i):
+        if i % j == 0:
+            return False
+    return True
 
-    for prime in primes:
-        if prime > n:
-            break
-        if game_state[prime]:
-            for multiple in range(prime, n + 1, prime):
-                game_state[multiple] = False
-            current_player = 1 - current_player
 
-    return 1 - current_player  # Return the loser (0 for Maria, 1 for Ben)
+def findPrimes(n):
+    """
+    Dispatch a given set into prime numbers and non-prime numbers.
+    """
+    counter = 0
+    target = list(n)
+    for i in range(1, len(target) + 1):
+        if isPrime(i):
+            counter += 1
+            target.remove(i)
+            target = findMultiples(i, target)
+        else:
+            pass
+    return counter
 
 
 def isWinner(x, nums):
-    if not nums or x <= 0:
-        return None
+    """
+    Maria and Ben are playing a game.Given a set of consecutive integers
+    starting from 1 up to and including n, they take turns choosing a
+    prime number from the set and removing that number and its
+    multiples from the set.
+    The player that cannot make a move loses the game.
 
-    max_n = max(nums)
-    primes, is_prime = sieve_of_eratosthenes(max_n)
+    They play x rounds of the game, where n may be different for each round.
+    Assuming Maria always goes first and both players play optimally,
+    determine who the winner of each game is.
+    """
+    players = {'Maria': 0, 'Ben': 0}
+    cluster = set()
+    for elem in range(x):
+        nums.sort()
+        num = nums[elem]
+        for i in range(1, num + 1):
+            cluster.add(i)
+            if i == num + 1:
+                break
+        temp = findPrimes(cluster)
 
-    maria_wins = 0
-    ben_wins = 0
+        if temp % 2 == 0:
+            players['Ben'] += 1
+        elif temp % 2 != 0:
+            players['Maria'] += 1
 
-    for n in nums:
-        winner = play_game(n, primes, is_prime)
-        if winner == 0:
-            ben_wins += 1
-        else:
-            maria_wins += 1
-
-    if maria_wins > ben_wins:
-        return "Maria"
-    elif ben_wins > maria_wins:
-        return "Ben"
+    if players['Maria'] > players['Ben']:
+        return 'Maria'
+    elif players['Maria'] < players['Ben']:
+        return 'Ben'
     else:
         return None
